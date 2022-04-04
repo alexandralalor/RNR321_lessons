@@ -33,8 +33,12 @@
 
 # 5. Use the read_csv() function from the tidyverse to read in your rocks file.
 # Save this data in an object called "rocks."
-rocks <- read_csv("data_raw/Module3_Lab1_SRSampling.csv") %>% drop_na()
-rocks2 <- read_csv("data_raw/Module3_Lab1_SRSampling2.csv")
+library(tidyverse)
+rocks <- read_csv("module3/data_raw/Module3_Lab1_SRSampling.csv") %>% drop_na()
+
+
+
+
 
 
 # 6. Create the object N, which is the number of units in your sampling frame.
