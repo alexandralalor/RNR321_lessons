@@ -155,6 +155,12 @@ var_tau_hat_A <- N_A * (N_A-n_A) * (var_A/n_A)
 var_tau_hat_B <- N_B * (N_B-n_B) * (var_B/n_B)
 var_tau_hat_C <- N_C * (N_C-n_C) * (var_C/n_C)
 
+#or
+
+var_tau_hat_A <- (N_A^2) * var_y_bar_A
+var_tau_hat_B <- (N_B^2) * var_y_bar_B
+var_tau_hat_C <- (N_C^2) * var_y_bar_C
+
 # c. standard error of abundance per stratum (SE_tau_hat)
 SE_tau_hat_A <- sqrt(var_tau_hat_A)
 SE_tau_hat_B <- sqrt(var_tau_hat_B)
@@ -164,6 +170,7 @@ SE_tau_hat_C <- sqrt(var_tau_hat_C)
 
 # 13. Calculate the non-weighted overall population mean.
 pop_mean_overall <- (tau_hat_A + tau_hat_B + tau_hat_C)/N
+pop_mean_overall2 <- mean(grasshoppers$abund)
 
 # 14. Calculate the weighted overall population mean.
 pop_mean_weighted <- ((N_A * mean_A) + (N_B * mean_B) + (N_C * mean_C)) / N
