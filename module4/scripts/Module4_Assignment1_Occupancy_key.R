@@ -96,7 +96,7 @@ tiger_naive_occ <- detections/nSites
 
 ## DATA ##
 
-# 12. Load in the tiger rattlesnake occupancy data. Save it as the object "diamond"
+# 12. Load in the diamond rattlesnake occupancy data. Save it as the object "diamond"
 diamond <- read_csv("data_raw/diamondback_rattlesnakes.csv")
 
 # 13. Create an unmarked dataframe for the Western diamondback rattlesnakes

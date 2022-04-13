@@ -10,16 +10,25 @@
 
 # 1. Define the sample standard deviation (not the equation but what stdev tells us).
 
+#The most commonly used measure of spread in a dataset is the standard deviation
 
 # 2. Define the standard error of the estimate of the mean (again, what is tells us).
 
+#Standard error of an estimate: is the standard deviation of the sampling 
+#distribution of an estimate, which quantifies the amount of uncertainty in or 
+#precision of that estimate
 
 # 3. How do standard deviation and standard error differ? (If you've explained that
 # above, reiterate it here.)
 
+#While the standard deviation provides a measure of the spread of the data from 
+#the mean, standard error (SE) represents the uncertainty in the calculation of 
+#the mean
 
 # 4. What does a confidence interval tell us?
 
+#Range of values within which the true value of a parameter is likely to exist 
+#with a fixed probability
 
 # Calculations (1 pt unless otherwise noted) ----------------------------------#
 
@@ -33,7 +42,7 @@ library(tidyverse)
 
 # 5. Use the read_csv() function from the tidyverse to read in your rocks file.
 # Save this data in an object called "rocks."
-rocks <- read_csv("data_raw/Module3_Lab1_SRSampling.csv") %>% drop_na()
+rocks <- read_csv("module3/data_raw/Module3_Lab1_SRSampling.csv") %>% drop_na()
 
 # 6. Create the object N, which is the number of units in your sampling frame.
 N <- 64
