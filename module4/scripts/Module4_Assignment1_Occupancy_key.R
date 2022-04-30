@@ -103,13 +103,8 @@ tiger_naive_occ
 
 ## DATA ##
 
-<<<<<<< HEAD
 # 12. Load in the tiger rattlesnake occupancy data. Save it as the object "diamond"
 diamond <- read_csv("module4/data_raw/diamondback_rattlesnakes.csv")
-=======
-# 12. Load in the diamond rattlesnake occupancy data. Save it as the object "diamond"
-diamond <- read_csv("data_raw/diamondback_rattlesnakes.csv")
->>>>>>> 8d2f2726c8ce4e08da83ef9cbc64750f0e6f3432
 
 # 13. Create an unmarked dataframe for the Western diamondback rattlesnakes
 diamondUMF <- unmarkedFrameOccu(diamond, obsCovs = survey_time)

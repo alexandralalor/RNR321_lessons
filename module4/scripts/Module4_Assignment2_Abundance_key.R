@@ -7,8 +7,26 @@
 # 1. In your own words, explain the difference between occupancy encounter 
 # histories and capture-mark-recapture encounter histories (2 pts)
 
+# Both the occupancy and capture-mark-recapture method are ways to estimate detection
+# probability with imperfect surveys. Two main differences between their
+# encounter histories are 1) capture-mark-recapture encounter histories only
+# contain histories for individuals captured at least once while occupancy
+# encounter histories can contain histories with no sightings (all zeros) and
+# 2) In capture-mark-recapture encounter histories, rows represent individuals,
+# but in occupancy encounter histories, rows represent sites. In both, columns
+# represent survey/sampling occasion.
+
+
 # 2. In your own words, explain the different between constant-effort and catch-
 # per-unit-effort. Give an example of each (3 pts)
+
+# The difference between constant-effort and catch-per-unit-effort (CPUE) models 
+# is in constant-effort models, the sampling effort for each occasion is the same, 
+# while in CPUE models, the sampling effort can vary among occasions. An example of a
+# constant-effort situation is electrofishing and an example of a CPUE situation
+# is trapping rodents on different occasions with different numbers of traps.
+
+
 
 # PREP ---------------------------------------------------------------------####
 
@@ -36,16 +54,16 @@ library(tidyverse)
 #     * n2 (# individuals captured in the second sample (total))
 #     * m2 (# individuals in the second sample which were marked)
 
-n1 <-
-n2 <- 
-m2 <-
+n1 <- 37
+n2 <- 42
+m2 <- 30
 
 ## ESTIMATE ABUNDANCE and DETECTION PROBABILITY ##
 
-# 4. Use the Lincoln-Peterson estimator to estimate the population total (N_hat)
+# 4a. Use the Lincoln-Peterson estimator to estimate the population total (N_hat)
 N_hat <- n1 * n2 / m2
 
-# 5. Remember, we can consider this equation a version of the "canonical
+# 5a. Remember, we can consider this equation a version of the "canonical
 # abundance estimator," meaning we can calculate an estimate of detection
 # probability. What is our detection probability estimate for desert pocket mice?
 p_hat <- m2 / n1
@@ -54,21 +72,26 @@ p_hat <- m2 / n1
 # Chaetodipus baileyi, on the first night and marked them. The second night, we
 # caught another 12 Bailey's, 4 of which were previously marked.
 
-# 4. Calculate the abundance of Bailey's pocket mice.
+# 4b. Calculate the abundance of Bailey's pocket mice.
 n1_Baileys <- 12
 n2_Baileys <- 12
 m2_Baileys <- 4
 
 N_hat_Baileys <- (n1_Baileys * n2_Baileys) / m2_Baileys
 
-# 5. Calculate the estimated detection probability of Bailey's pocket mouse.
+# 5b. Calculate the estimated detection probability of Bailey's pocket mouse.
 p_hat_Baileys <- m2_Baileys / n1_Baileys
 
 
 # 6. In your own words, briefly explain what the differences in estimated
 # detection probabilities means in the context of this example (2pts). 
 
-
+# The estimated detection probability for desert pocket mice is much greater
+# than that of Bailey's pocket mice. This means that the probability of seeing
+# a Bailey's pocket mouse during a survey is lower than the probability of
+# seeing a desert pocket mouse during a survey. This could be due to site
+# characteristics that make it more difficult to spot Bailey's pocket mice
+# compared to desert pocket mice.
 
 
 
@@ -116,8 +139,8 @@ N_hat_removal <- (n1_removal^2) / (n1_removal - n2_removal)
 # Similar, but not exactly the same! 
 
 # 11. Let's do the same for the Bailey's pocket mouse.
-n1_removalB <- n1_Baileys
-n2_removalB <- n2_Baileys - m2_Baileys
+n1_removalB <- n1_Baileys #12
+n2_removalB <- n2_Baileys - m2_Baileys #8
 
 N_hat_removalB <- (n1_Baileys^2) / (n1_removalB - n2_removalB)
 
@@ -127,7 +150,7 @@ N_hat_removalB <- (n1_Baileys^2) / (n1_removalB - n2_removalB)
 # 12. Read in the catch per unit effort data (CPUE_data.csv). In this dataset, 
 # let catch (ni) be the abundance of crab (x1000) and effort (fi) be trap hauls
 # (x1000)
-cpue <- 
+cpue <- read_csv("module4/data_raw/CPUE_data.csv")
   
 # 13. Examine the dataset using head() or glimpse()
 head(cpue)
