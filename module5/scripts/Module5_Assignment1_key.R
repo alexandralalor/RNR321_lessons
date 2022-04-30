@@ -18,7 +18,7 @@ library(unmarked)
 # SAGUAROS -----------------------------------------------------------------####
 
 # 1. Read in the saguaro data
-saguaro <- read.csv("data_raw/saguaro.csv")
+saguaro <- read.csv("module5/data_raw/saguaro.csv")
 
 # 2. Make a dataframe with transect length (i.e., survey effort)
 transect_length <- saguaro %>% 
@@ -90,7 +90,7 @@ exp(confint(HN, type="state"))  # CI for density
 
 # 14. Read in the ocotillo data and make a dataframe with the transect lengths.
 # Remember to use read.csv this time (instead of read_csv)! (2pts)
-ocotillo <- read.csv("data_raw/ocotillo.csv")
+ocotillo <- read.csv("module5/data_raw/ocotillo.csv")
 
 transect_length_oco <- ocotillo %>% 
   group_by(group) %>% 
@@ -126,7 +126,7 @@ UMF_oco
 # 19. Fit the four models to the ocotillo data. Again, be sure you're using the 
 # correct dataframe. (2pts)
 HN_oco   <- distsamp(~1 ~1, UMF_oco, keyfun = "halfnorm", output = "density", unitsOut = "ha")
-HR_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "halfnorm", output = "density", unitsOut = "ha")
+HR_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "hazard", output = "density", unitsOut = "ha")
 Unif_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "uniform", output = "density", unitsOut = "ha")
 Exp_oco  <- distsamp(~1 ~1, UMF_oco, keyfun = "exp", output = "density", unitsOut = "ha")
 
@@ -148,7 +148,7 @@ exp(confint(HN_oco, type="state"))  # CI for density
 # COMPARE ------------------------------------------------------------------####
 
 # 22. Which has the higher density per hectare? Saguaros or ocotillos? 
-
+#ocotillos
 
 #---------------------------------------------------------------------------####
 # Submit this script with your answers to the assignment dropbox on D2L.
