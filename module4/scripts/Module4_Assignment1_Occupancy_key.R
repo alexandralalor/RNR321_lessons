@@ -23,11 +23,14 @@ library(unmarked)
 ## DATA ##
 
 # 1. Load in the tiger rattlesnake occupancy data. Save it as the object "tiger"
-tiger <- read_csv("data_raw/tiger_rattlesnakes.csv")
+tiger <- read_csv("module4/data_raw/tiger_rattlesnakes.csv")
+diamond <- read_csv("module4/data_raw/diamondback_rattlesnakes.csv")
 
 # Take a look at the dataframe and explore it a bit. 
 # 2a. How many sites were surveyed? 
+40 sites
 # 2b. How many times was each individual site surveyed?
+5 times
 
 # 3. Like we did in the tortoise example, create a list of times for this dataset.
 # HINT: Be sure to make each one the correct length based on your answer to Q2
@@ -60,6 +63,9 @@ tiger_models <- fitList(tiger_psidot_pdot  = tiger_psidot_pdot,
 modSel(tiger_models)
 
 # 7. Which model should we choose? Why? (2pts)
+#                    nPars    AIC delta AICwt cumltvWt
+# psidot_pdot_tiger      2 142.94  0.00 0.969     0.97
+# psidot_ptime_tiger     6 149.80  6.86 0.031     1.00
 # We should choose psidot_pdot because it has the lowest AIC score (and delta = 0)
 
 # 8. Report the estimates of occupancy and detection from our chosen model. 
@@ -86,9 +92,10 @@ no_detections <- sum(detects == 0)  # Number of sites with no detections
 detections <- sum(detects > 0)      # Number of sites with at least one detection
 
 tiger_naive_occ <- detections/nSites
+tiger_naive_occ
 # Naive occupancy: 0.35
-# Underestimate (lower) because we are not taking into account individuals which 
-# are present but we did not detect.
+# Model estimate = 0.42; underestimate (lower) because we are not taking into 
+# account individuals which are present but we did not detect.
 
 # WESTERN DIAMONDBACK RATTLESNAKES -----------------------------------------####
 
@@ -97,7 +104,7 @@ tiger_naive_occ <- detections/nSites
 ## DATA ##
 
 # 12. Load in the tiger rattlesnake occupancy data. Save it as the object "diamond"
-diamond <- read_csv("data_raw/diamondback_rattlesnakes.csv")
+diamond <- read_csv("module4/data_raw/diamondback_rattlesnakes.csv")
 
 # 13. Create an unmarked dataframe for the Western diamondback rattlesnakes
 diamondUMF <- unmarkedFrameOccu(diamond, obsCovs = survey_time)
@@ -120,7 +127,10 @@ diamond_models <- fitList(diamond_psidot_pdot  = diamond_psidot_pdot,
                           diamond_psidot_ptime = diamond_psidot_ptime)
 modSel(diamond_models)
 
-# 16. Which model should we choose? 
+# 16. Which model should we choose?
+#                      nPars    AIC delta AICwt cumltvWt
+# psidot_pdot_diamond      2 209.51  0.00 0.964     0.96
+# psidot_ptime_diamond     6 216.06  6.55 0.036     1.00
 # We should choose psidot_pdot
 
 # 17. Report the estimates of occupancy and detection from our chosen model. 
@@ -147,7 +157,10 @@ no_detections <- sum(detects == 0)  # Number of sites with no detections
 detections <- sum(detects > 0)      # Number of sites with at least one detection
 
 diamond_naive_occ <- detections/nSites
-# Naive occupancy: 0.65
+diamond_naive_occ
+# Naive occupancy: 0.625
+#Model estimate = 0.78; underestimate (lower) because we are not taking into 
+# account individuals which are present but we did not detect.
 
 # COMPARE THE SPECIES ------------------------------------------------------####
 
@@ -155,6 +168,27 @@ diamond_naive_occ <- detections/nSites
 # rattlesnake populations that we surveyed. What are the differences in 
 # estimated occupancy? What about detection probability? What might that tell us
 # about each species (take a guess here!)? (3pts)
+
+
+# For both the tiger and diamondback rattlesnake populations the "naive" occupancy 
+# was lower than the model estimate, which is expected. 
+
+# Tiger model
+# Occupancy: 0.42
+# Detection: 0.29
+
+# Diamond model 
+# Occupancy: 0.78
+# Detection: 0.28
+
+
+# These results tell us that the probability of detecting either rattlesnake species 
+# at a given site is nearly the same, but the chance a site is occupied by a diamondback 
+# is much higher than the chance a site is occupied by a tiger rattlesnake. I 
+# hypothesize that the detection is similar for the two species because the
+# surveys were carried out in the same area, holding the site characteristics
+# equal. The occupancy may differ because there is a greater number of
+# diamondbacks than tiger rattlesnakes.
 
 
 
