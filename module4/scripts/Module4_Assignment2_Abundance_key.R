@@ -156,7 +156,7 @@ N_hat_removalB <- (n1_Baileys^2) / (n1_removalB - n2_removalB)
 # 14. Read in the catch per unit effort data (CPUE_data.csv). In this dataset, 
 # let catch (ni) be the abundance of crab (x1000) and effort (fi) be trap hauls
 # (x1000)
-cpue <- read_csv("module4/data_raw/CPUE_data.csv")
+CPUE <- read_csv("module4/data_raw/CPUE_data.csv")
   
 # 15. Examine the dataset using head() or glimpse()
 head(cpue)
