@@ -14,7 +14,7 @@ library(tidyverse)
 # POINT-CENTERED QUARTER (PCQ) ---------------------------------------------####
 
 # 1. Read in the data. This is data for saguaros > 2m tall.
-saguaro <- read_csv("data_raw/PCQ_Data.csv")
+saguaro <- read_csv("module5/data_raw/PCQ_Data.csv")
 
 # 2. Check out the data frame. How many points (k) were sampled? How many distances
 # did we measure at each point (n)? (2 pts)
