@@ -72,17 +72,29 @@ models <- fitList('Half Normal' = HN,
                   'Exponential' = Exp)
 modSel(models)
 
+#             nPars    AIC delta   AICwt cumltvWt
+# Half Normal     2 213.10  0.00 5.3e-01     0.53
+# Hazard Rate     3 213.37  0.27 4.7e-01     1.00
+# Exponential     2 230.34 17.24 9.6e-05     1.00
+# Uniform         1 242.62 29.53 2.1e-07     1.00
+
+
 # 11. Which model should we use? Why?
 # Half-normal, lowest AIC value
 
 ## Density Estimate and Confidence Intervals ##
 
 # 12. Use the backTransform function to calculate the density estimate.
-backTransform(HN, type="state") # Density estimate (no./ha) 
+backTransform(HN, type="state") # Density estimate (no./ha)
+
+# Estimate   SE LinComb (Intercept)
+# 49.5     5.66     3.9           1
 
 # 13. Calculate the confidence intervals for the density estimate.
 exp(confint(HN, type="state"))  # CI for density
 
+#             0.025    0.975
+# lam(Int) 39.57627 61.96885
   
 # OCOTILLOS ----------------------------------------------------------------####
 
@@ -139,11 +151,26 @@ models_oco <- fitList('Half Normal' = HN_oco,
                       'Uniform'     = Unif_oco,
                       'Exponential' = Exp_oco)
 modSel(models_oco)
+
+#             nPars    AIC  delta   AICwt cumltvWt
+# Half Normal     2 284.10   0.00 8.0e-01     0.80
+# Hazard Rate     3 286.89   2.79 2.0e-01     1.00
+# Exponential     2 431.82 147.72 6.7e-33     1.00
+# Uniform         1 431.82 147.72 6.7e-33     1.00
+
 # Let's go ahead and use the Half-Normal model.
 
 # 21. Get the density estimate and confidence intervals for it.
 backTransform(HN_oco, type="state") # Density estimate (no./ha) 
+
+# Estimate  SE LinComb (Intercept)
+# 118      8.3    4.77           1
+
+
 exp(confint(HN_oco, type="state"))  # CI for density
+
+#             0.025    0.975
+# lam(Int) 103.0058 135.6364
 
 # COMPARE ------------------------------------------------------------------####
 

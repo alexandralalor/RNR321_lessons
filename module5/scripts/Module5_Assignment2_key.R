@@ -39,6 +39,16 @@ saguaro_long <- pivot_longer(data = saguaro,
 head(saguaro_long)  # all the distance values are now in one column, 
                     # and there is a new column that has the name of the quarter, which were previously column names
 
+# Point Quarter Distance
+# <dbl> <chr>      <dbl>
+#   1     1 NE           7  
+#   2     1 SE           7.5
+#   3     1 SW           9.3
+#   4     1 NW          13.9
+#   5     2 NE           2.4
+#   6     2 SE           5.8
+
+
 # 4. Now, we need to square all of these values. Fill in the correct column name
 # below and run the code.
 squared_distances <- saguaro_long %>% 
