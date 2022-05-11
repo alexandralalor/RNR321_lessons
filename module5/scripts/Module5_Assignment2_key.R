@@ -130,6 +130,7 @@ var_seedlings
 ID <- var_seedlings / mean_seedlings
 ID
 # 2.616035
+# The ID value greater than one indicates a clumped pattern of dispersal.
 
 # We aren't done yet, though! We need to test the significance of our findings.
 
@@ -170,8 +171,7 @@ pnorm(d, lower.tail = FALSE)
 # The variance for a species with a uniform distribution is smaller than the 
 # variance for a clumped distribution because for a uniform distribution, 
 # observations tend to be nearer to the mean than observations for a clumped 
-# distribution. Also, taking the square of the difference between the mean and 
-# observations amplifies this.
+# distribution.
 
 
 #---------------------------------------------------------------------------####
