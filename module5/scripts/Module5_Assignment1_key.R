@@ -19,11 +19,13 @@ library(unmarked)
 
 # 1. Read in the saguaro data
 saguaro <- read.csv("module5/data_raw/saguaro.csv")
+ocotillo <- read.csv("module5/data_raw/ocotillo.csv")
 
 # 2. Make a dataframe with transect length (i.e., survey effort)
 transect_length <- saguaro %>% 
   group_by(group) %>% 
   summarise(length = mean(length))
+
 
 # 3. Plot the distribution of detection distances
 hist(saguaro$distance) 
@@ -32,7 +34,11 @@ hist(saguaro$distance)
 trunc <- 20
 
 # 5. Set 'cut points' for distance bins; for saguaros, let's do every 4 meters
-distance_bins <- seq(0, trunc, by = 4) 
+distance_bins <- seq(0, trunc, by = 4)
+
+distance_bins
+# 0  4  8  12  16  20
+
 
 # 6. Use unmarked function 'formatDistData' to count the number of detections in 
 # each distance bin for each transect. Ignore the warning message.
@@ -41,6 +47,7 @@ sag_data <- formatDistData(saguaro,
                            transectNameCol = "group", 
                            dist.breaks = distance_bins)
 
+
 # 7. Assemble data into the format required by unmarked, called an 'unmarked frame'
 UMF <- unmarkedFrameDS(y = as.matrix(sag_data), 
                        survey = "line",
@@ -48,6 +55,17 @@ UMF <- unmarkedFrameDS(y = as.matrix(sag_data),
                        dist.breaks = distance_bins,
                        unitsIn = "m")
 UMF
+#                y.1 y.2 y.3 y.4 y.5
+# AB, JA, SK       5   7   1   0   0
+# AB, SS, ML       7   4   4   4   1
+# CB, CC, MZ       3   4   2   0   3
+# EF, LB, YX       5   8   9   4   0
+# HA, JB, BD, VM   4   3   2   1   1
+# HB, SI, BM       1   1   4   0   0
+# JG, AV, MN       2   2   3   3   0
+# KH, NT, BS       2   2   2   0   0
+# KT, MRD, BC      3   3   4   2   1
+# NL, MS, MM       6   6   1   5   2
 
 # 8. Check the distribution of detection distances to be used for analysis
 hist(UMF)
@@ -60,7 +78,7 @@ HN   <- distsamp(~1 ~1, UMF, keyfun = "halfnorm", output = "density", unitsOut =
 HR   <- distsamp(~1 ~1, UMF, keyfun = "hazard", output = "density", unitsOut = "ha")
 Unif <- distsamp(~1 ~1, UMF, keyfun = "uniform", output = "density", unitsOut = "ha")
 Exp  <- distsamp(~1 ~1, UMF, keyfun = "exp", output = "density", unitsOut = "ha")
-  
+
 
 ## Model Selection based on AIC ##
 
@@ -108,6 +126,7 @@ transect_length_oco <- ocotillo %>%
   group_by(group) %>% 
   summarise(length = mean(length))
 
+
 # 15. Plot the distribution of detection distances
 hist(ocotillo$distance) 
 
@@ -115,6 +134,9 @@ hist(ocotillo$distance)
 # to 25m and set cut points at every 5 meters.
 trunc_oco <- 25
 distance_bins_oco <- seq(0, trunc_oco, by = 5) 
+
+distance_bins_oco
+# 0  5  10  15  20  25
 
 # 17. Use unmarked function 'formatDistData' to count the number of detection in 
 # each distance bin for each transect. Ignore the warning message. Remember to 
@@ -132,6 +154,17 @@ UMF_oco <- unmarkedFrameDS(y = as.matrix(oco_data),
                            dist.breaks = distance_bins_oco,
                            unitsIn = "m")
 UMF_oco
+#                y.1 y.2 y.3 y.4 y.5
+# AB JA SK        10   8   2   0   0
+# AB, SS, ML      17   9   9   7   4
+# CB, CC, MZ       9  17   8  11   5
+# EF, LB, YX       4   8   3   3   0
+# HA, JB, BD, VM  22  16   6   6   0
+# HB, SI, BM       3   7   5   2   0
+# JG, AV, MN      17   6   6   4   0
+# KH, NT, BS      13  15   2   0   0
+# KT, MRD, BC     14   7   2   0   0
+# NL, MS, MM      26   7   8   7   3
 
 ## Fit Models for the Detection Function ##
 
@@ -162,20 +195,19 @@ modSel(models_oco)
 
 # 21. Get the density estimate and confidence intervals for it.
 backTransform(HN_oco, type="state") # Density estimate (no./ha) 
-
 # Estimate  SE LinComb (Intercept)
 # 118      8.3    4.77           1
 
-
 exp(confint(HN_oco, type="state"))  # CI for density
-
 #             0.025    0.975
 # lam(Int) 103.0058 135.6364
 
 # COMPARE ------------------------------------------------------------------####
 
 # 22. Which has the higher density per hectare? Saguaros or ocotillos? 
-#ocotillos
+
+# Ocotillos have a higher density per hectare at 118 compared to Saguaros at
+# 49.5.
 
 #---------------------------------------------------------------------------####
 # Submit this script with your answers to the assignment dropbox on D2L.

@@ -25,6 +25,7 @@ n <- 4
 # 3. Take a look at the equation for estimating density using the PCQ method. The 
 # numerator of the equation can be calculated in one step! Calculate the numerator.
 numerator <- k * n
+#32
 
 # The denominator is a bit more complicated, but we can work through it together.
 # Hold on with me while we do some data wrangling to make it easier to calculate!
@@ -39,41 +40,50 @@ saguaro_long <- pivot_longer(data = saguaro,
 head(saguaro_long)  # all the distance values are now in one column, 
                     # and there is a new column that has the name of the quarter, which were previously column names
 
-# Point Quarter Distance
-# <dbl> <chr>      <dbl>
-#   1     1 NE           7  
-#   2     1 SE           7.5
-#   3     1 SW           9.3
-#   4     1 NW          13.9
-#   5     2 NE           2.4
-#   6     2 SE           5.8
-
-
 # 4. Now, we need to square all of these values. Fill in the correct column name
 # below and run the code.
 squared_distances <- saguaro_long %>% 
   mutate(Distance_squared = Distance ^ 2) 
+
 head(squared_distances)
+
 
 # 5. We now sum the squared distances. Fill in the correct column name below and run the code.
 sum_sqrd_distances <- squared_distances %>% 
   summarise(Sum_Squared_Distances = sum(Distance_squared))
+
 head(sum_sqrd_distances)
+# 2983
 
 # 6. We can calculate the value of the denominator by multiple the sum of the squared 
 # distances (sum_sqrd_distances) by pi (you can type "pi" into the equation)
 denominator <- sum_sqrd_distances * pi
+denominator
+# 9370.271
 
 # 7. Finally, we can calculate our density estimate (# saguaros per square meter)
 density <- numerator / denominator
+
 print(density)
+# 0.003415056
 
 # 8. Convert the density estimate to # saguaros per hectare (ha = 100m x 100m AKA 10,000 m2)
 density_ha <- density * 10000
 
+density_ha
+# 34.15056
+
+
 # 9. Based on the target of these surveys (saguaros > 2m) and what you know about
 # the assumptions of PCQ methods, do you think this estimate of density is 
 # a reliable estimate? Why or why not? (2 pts)
+
+# Yes, this estimate of saguaro density is reliable. 
+# The main assumptions of PCQ methods are
+# 1) detection probability equals one, and 
+# 2) objects are randomly distributed.
+# Because this survey looked at saguaros greater than two meters in height,
+# it is unlikely that any were missed and saguaros tend to be distributed randomly.
 
 
 
@@ -100,43 +110,68 @@ hist(seedlings)
 # these data are likely to show: clumped, random, or uniform. Why? (2 pts)
 # Hint: think about the mean and the variance.
 
+# These data are likely to show a clumped pattern of dispersion because there is 
+# a big distribution of data away from the mean so there is a high variance
+
 
 
 # 12. Use the mean function to calculate the mean number of seedlings per plots.
 mean_seedlings <- mean(seedlings)
+mean_seedlings
+# 2.086538
 
 # 13. Use var() to calculate the variance around the mean
 var_seedlings <- var(seedlings)
+var_seedlings
+# 5.458458
 
 # 14. Calculate the Index of Dispersion (ID) to characterize the dispersion pattern.
 # Which pattern does the ID value indicate? (2 pts)
 ID <- var_seedlings / mean_seedlings
 ID
+# 2.616035
 
 # We aren't done yet, though! We need to test the significance of our findings.
 
 # 15. First, create the chi.sq test statistic.
 df <- (length(seedlings) - 1) 
+df
+# 103
 chi.sq <- ID * df
 chi.sq
+# 269.4516
 
 # 16. Based on the fact that our n is > 100, we will want to use the normal distribution.
 # That means we first need to adjust our test statistic.
 d <- sqrt(2 * chi.sq) - sqrt((2 * df) - 1)
+d
+# 8.896468
 
 # 17. Run the correct significance test. 
 pnorm(d, lower.tail = FALSE)
+# 2.882599e-19
 
 # 18. Is the pattern significantly different from random? Remember, the way we've 
 # coded this means our interpretation differs a bit from the PowerPoint slides.
 # If the P-value is smaller than 0.10, then we reject the null hypothesis and
 # say that the pattern differs significantly from random.
 
+# Yes, the pattern is significantly different from random because the p-value 
+# is much less than 0.10. This p-value allows use to accept the alternative 
+# hypothesis that the pattern is significantly different from random.
+
+
 
 # 19. Think critically about what the variance of sample data means. In your own
 # words, explain why you would expect the variance for a species with a uniform
 # distribution to be smaller than the variance for a species with a clumped 
 # distribution? (2 pts)
+
+# The variance for a species with a uniform distribution is smaller than the 
+# variance for a clumped distribution because for a uniform distribution, 
+# observations tend to be nearer to the mean than observations for a clumped 
+# distribution. Also, taking the square of the difference between the mean and 
+# observations amplifies this.
 
 
 #---------------------------------------------------------------------------####
